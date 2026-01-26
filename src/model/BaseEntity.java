@@ -31,7 +31,7 @@ public abstract class BaseEntity implements Validatable{
         return name;
     }
 
-    public void getName(String name){
+    public void setName(String name){
         if(name == null){
             throw new IllegalArgumentException("Name must not be empty");
         }
