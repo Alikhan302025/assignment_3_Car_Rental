@@ -1,19 +1,13 @@
 package model;
+import exception.*;
 
 public abstract class BaseEntity implements Validatable{
-    protected int id;
-    protected String name;
+    private int id;
+    private String name;
 
-    public BaseEntity(int id, String name){
-        this.id = id;
-        this.name = name;
-
-    }
-    public abstract String getEntityType();
-    public abstract void validate();
-
-    public String getDisplayName(){
-        return name + " " + id;
+    protected BaseEntity(int id, String name) {
+        setId(id);
+        setName(name);
     }
 
     public int getId(){
@@ -36,6 +30,18 @@ public abstract class BaseEntity implements Validatable{
             throw new IllegalArgumentException("Name must not be empty");
         }
         this.name = name;
-        }
+    }
+
+
+
+
+    public abstract String getEntityType();
+    public abstract void validate();
+
+    public String getDisplayName(){
+        return name + " " + id;
+    }
+
+
 }
 

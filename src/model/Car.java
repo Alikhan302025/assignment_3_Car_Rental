@@ -1,6 +1,6 @@
 package model;
 
-public class Car extends BaseEntity implements PricedItem {
+public class Car extends BaseEntity implements PricedItem, Printable {
     private String brand;
     private String model;
     private int year;
@@ -17,9 +17,15 @@ public class Car extends BaseEntity implements PricedItem {
         validate();
     }
     @Override
+    public String toPrint(){
+        return "Car id= " + getId() + ", brand= " + getBrand() + ", model=" + getModel() + ",year=" + getYear() + ", dayliPrice=" + getDailyPrice();
+    }
+
+    @Override
     public String getEntityType(){
         return "Car";
     }
+
     @Override
     public void validate() {
         if (dailyPrice <= 0) {
@@ -29,7 +35,7 @@ public class Car extends BaseEntity implements PricedItem {
             throw new IllegalArgumentException("Invalid car year");
         }
     }
-    @Override
+
     public int getDailyPrice() {
         return dailyPrice;
     }

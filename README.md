@@ -115,3 +115,163 @@ Advantages of JDBC and multi-tier architecture:
 Clear separation of concerns.
 Simplified code testing.
 Explicit SQL processing and data validation ensure data consistency.
+
+
+---
+/// README NEW
+---
+A. SOLID Documentation 
+---
+S → Single Responsibility Principle (SRP)
+---
+Each class in the project has a single responsibility:
+Car, Customer, Rental - represent domain entities only.
+CarService, CustomerService, RentalService - contain business logic and validation.
+CarRepository, CustomerRepository, RentalRepository - handle database operations only. 
+Main / Controller - handles program execution and user interaction.
+---
+O → Open/Closed Principle(OCP)
+---
+The system is open for extension but closed for modification:
+New entity types can be added by extending BaseEntity.
+Existing service and repository logic does not need to be modified when new subclasses are introduced.
+
+Example: additional vehicle types could extend Car without changing service logic.
+
+---
+L → Liskov Substitution Principle (LSP)
+---
+All subclasses can be safely substituted for their base class:
+
+Car, Customer, and Rental extend BaseEntity.
+
+Any method expecting BaseEntity can work correctly with its subclasses without breaking behavior.
+
+---
+I → Interface Segregation Principle (ISP)
+---
+The project uses small, focused interfaces:
+
+Repository<T> defines only CRUD operations.
+
+CarServiceInterface, CustomerServiceInterface define only service-related methods.
+
+---
+D → Dependency Inversion Principle (DIP)
+---
+High-level modules depend on abstractions, not implementations:
+
+Services depend on Repository<T> interface, not concrete repository classes.
+
+Repositories are injected via constructors in Main.
+
+
+B. Advanced OOP Features
+---
+Generics.
+Used in Repository<T> interface to provide reusable CRUD functionality for different entities (Car, Customer, Rental).
+---
+Lambda Expressions
+
+Used in SortingUtils with Java Stream API:
+
+1 Filtering cars by minimum price
+
+2 Sorting cars by daily price
+
+3 Finding the most expensive car
+
+---
+Reflection
+
+Implemented in ReflectionUtils:
+
+Displays class name
+Lists declared fields
+Lists declared methods
+
+---
+Interface Default & Static Methods
+
+Implemented in Printable interface:
+
+default void print() - prints object information
+
+static String separator() - utility method for formatting output
+
+---
+C. OOP Documentation 
+---
+
+Abstract Class
+BaseEntity is an abstract base class.
+Shared fields and behavior are inherited by Car, Customer, and Rental.
+
+Composition
+Rental contains references to Car and Customer.
+
+Polymorphism
+Services and repositories work with base types (Repository<T>, BaseEntity).
+Different entity types are handled uniformly through abstractions.
+
+---
+D. Database Section
+---
+
+The scheme and constraints are the same (I haven't changed them)
+
+Sample Inserts
+
+INSERT INTO cars (brand, model, year, daily_price)
+VALUES ('Toyota', 'Camry', 2022, 12000);
+
+---
+E. Architecture Explanation
+---
+
+Controller/ Main
+
+Handles execution flow and output
+Catches and displays exceptions
+
+Service
+
+Contains business logic
+Performs validation
+Throws custom exceptions
+
+Repository
+
+Handles JDBC operations
+Converts SQLException into DatabaseOperationException
+
+---
+F. Execution Instructions 
+---
+
+Requirements
+
+Java 17+
+PostgreSQL
+JDBC driver
+
+Run 
+
+javac Main.java
+
+java Main
+
+---
+G. Screenshots 
+---
+
+![img.png](img.png)
+
+---
+H. Reflection
+---
+
+Challenges
+Value of SOLID Architecture
+
+Refactoring existing code

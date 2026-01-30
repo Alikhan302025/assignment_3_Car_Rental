@@ -7,7 +7,7 @@ import utils.DatabaseConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import exception.*;
 public class CustomerRepository implements Repository<Customer> {
 
 
@@ -34,7 +34,7 @@ public class CustomerRepository implements Repository<Customer> {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error saving customer: " + e.getMessage(), e);
+            throw new DatabaseOperationException("Error saving customer: " + e.getMessage(), e);
         }
     }
 
@@ -61,7 +61,7 @@ public class CustomerRepository implements Repository<Customer> {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error finding customer by ID: " + e.getMessage(), e);
+            throw new DatabaseOperationException("Error finding customer by ID: " + e.getMessage(), e);
         }
 
         return null;
@@ -89,11 +89,15 @@ public class CustomerRepository implements Repository<Customer> {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error fetching all customers: " + e.getMessage(), e);
+            throw new DatabaseOperationException("Error fetching all customers: " + e.getMessage(), e);
         }
 
         return customers;
     }
+
+
+
+
 
 
     @Override
@@ -113,7 +117,7 @@ public class CustomerRepository implements Repository<Customer> {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error updating customer: " + e.getMessage(), e);
+            throw new DatabaseOperationException("Error updating customer: " + e.getMessage(), e);
         }
     }
 
@@ -129,7 +133,7 @@ public class CustomerRepository implements Repository<Customer> {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error deleting customer: " + e.getMessage(), e);
+            throw new DatabaseOperationException("Error deleting customer: " + e.getMessage(), e);
         }
     }
 }

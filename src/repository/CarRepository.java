@@ -1,5 +1,7 @@
 package repository;
 
+import exception.DatabaseOperationException;
+import exception.ResourceNotFoundException;
 import model.Car;
 import utils.DatabaseConnection;
 
@@ -30,7 +32,7 @@ public class CarRepository implements Repository<Car> {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error saving car", e);
+            throw new DatabaseOperationException("Error saving car", e);
         }
     }
 
@@ -56,7 +58,7 @@ public class CarRepository implements Repository<Car> {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error finding car", e);
+            throw new DatabaseOperationException("Error finding car", e);
         }
 
         return null;
@@ -70,6 +72,7 @@ public class CarRepository implements Repository<Car> {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
+            //stmt.setInt(1, price);
 
             while (rs.next()) {
                 cars.add(new Car(
@@ -83,11 +86,12 @@ public class CarRepository implements Repository<Car> {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error fetching cars", e);
+            throw new DatabaseOperationException("Error fetching cars", e);
         }
-
         return cars;
     }
+
+
 
     @Override
     public void update(Car car) {
@@ -106,7 +110,7 @@ public class CarRepository implements Repository<Car> {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error updating car", e);
+            throw new DatabaseOperationException("Error updating car", e);
         }
     }
 
@@ -121,8 +125,7 @@ public class CarRepository implements Repository<Car> {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error deleting car", e);
+            throw new DatabaseOperationException("Error deleting car", e);
         }
     }
 }
-

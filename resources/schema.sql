@@ -82,6 +82,7 @@ INSERT INTO cars (brand, model, year, daily_price, branch_id) VALUES
                                                                   ('Lexus', 'RX350', 2022, 40000, 6);
 
 
+//String sql = "SELECT * FROM cars ORDER BY daily_price DESC LIMIT 1";
 
 INSERT INTO rentals (customer_id, car_id, start_date, end_date, status) VALUES
                                                                             (1, 1, '2025-01-01', '2025-01-05', 'completed'),

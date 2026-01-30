@@ -21,13 +21,15 @@ public class Rental extends BaseEntity {
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
+        //validate();
 
-        validate();
     }
     @Override
     public String getEntityType() {
         return "Rental";
     }
+
+    @Override
     public void validate(){
         if (customer == null){
             throw new IllegalArgumentException("Customer is required");

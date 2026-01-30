@@ -7,6 +7,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import exception.*;
 
 public class RentalRepository implements Repository<Rental> {
 
@@ -31,7 +32,7 @@ public class RentalRepository implements Repository<Rental> {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error saving rental", e);
+            throw new DatabaseOperationException("Error saving rental", e);
         }
     }
 
@@ -57,7 +58,7 @@ public class RentalRepository implements Repository<Rental> {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error finding rental", e);
+            throw new DatabaseOperationException("Error finding rental", e);
         }
 
         return null;
@@ -84,7 +85,7 @@ public class RentalRepository implements Repository<Rental> {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error fetching rentals", e);
+            throw new DatabaseOperationException("Error fetching rentals", e);
         }
 
         return rentals;
@@ -104,7 +105,7 @@ public class RentalRepository implements Repository<Rental> {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error updating rental", e);
+            throw new DatabaseOperationException("Error updating rental", e);
         }
     }
 
@@ -119,7 +120,7 @@ public class RentalRepository implements Repository<Rental> {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error deleting rental", e);
+            throw new DatabaseOperationException("Error deleting rental", e);
         }
     }
 }
